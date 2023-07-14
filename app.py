@@ -9,9 +9,8 @@ st.set_page_config(
             },
         page_icon="./sas-removebg-preview.png",
         layout="wide",
+        initial_sidebar_state='expanded'
 )
-if 'page' not in st.session_state:
-    st.session_state.page = "Home"
 
 def read_file(uploaded_file):
     if uploaded_file.name.endswith(".csv"):
@@ -23,11 +22,26 @@ def read_file(uploaded_file):
     return df
 
 def pygwalker(df):
+    st.markdown(
+                """
+                <style>
+                .stApp {
+                    background-image: url('http://getwallpapers.com/wallpaper/full/d/1/7/202392.jpg');
+                    background-size: cover;
+                    background-position: center;
+                    min-height: 100vh;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+
+    st.title('Visualisation')
     components.html("", height=0)
     pyg_html=str(pyg.walk(df,return_html=True,login_required=False))
-    components.html(pyg_html,scrolling=True)
+    components.html(pyg_html,height=1080,scrolling=True)
 
-def main():
+def render_main_page():
     st.markdown(
             """
             <style>
@@ -52,7 +66,7 @@ def main():
         st.title("EDA")
 
     with col3:
-        st.image("./sas-removebg-preview.png")
+        st.image("./digiq.jpg")
 
     st.caption('''Lorem 
                ipsum dolor sit 
@@ -83,10 +97,21 @@ def main():
     uploaded_file = st.file_uploader("Upload a file", type=["csv", "xlsx"])
 
     if uploaded_file is not None:
-        df = read_file(uploaded_file)
-        st.write(df)
-        if st.button("Go to Pygwalker"):
-            pygwalker(df)
+        st.session_state.df = read_file(uploaded_file)
+
+    if st.button("Show data"):
+        st.write(st.session_state.df)
+
+
+def main():
+    st.sidebar.title("Tools")
+    menu = ["EDA", "Visualisations"]
+    choice = st.sidebar.radio("Go to", menu)
+
+    if choice == "EDA":
+        render_main_page()
+    elif choice == "Visualisations":
+        pygwalker(st.session_state.df)
 
 if __name__ == "__main__":
     main()
