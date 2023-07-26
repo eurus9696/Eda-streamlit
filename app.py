@@ -2,6 +2,8 @@ import streamlit as st
 import streamlit.components.v1 as components
 import pygwalker as pyg
 import pandas as pd
+import util
+
 st.set_page_config(
         page_title="EDA",
         menu_items={
@@ -10,16 +12,9 @@ st.set_page_config(
         page_icon="./sas-removebg-preview.png",
         layout="wide",
         initial_sidebar_state='expanded'
-)
+    )
 
-def read_file(uploaded_file):
-    if uploaded_file.name.endswith(".csv"):
-        df = pd.read_csv(uploaded_file)
-    elif uploaded_file.name.endswith(".xlsx"):
-        df = pd.read_excel(uploaded_file)
-    else:
-        return None
-    return df
+
 
 def pygwalker(df):
     st.markdown(
@@ -68,39 +63,47 @@ def render_main_page():
     with col3:
         st.image("./digiq.jpg")
 
-    st.caption('''Lorem 
-               ipsum dolor sit 
-               amet, consectetur 
-               adipiscing elit Lorem 
-               ipsum dolor sit 
-               amet, consectetur 
-               adipiscing elit.orem 
-               ipsum dolor sit 
-               amet, consectetur 
-               adipiscing elit.orem 
-               ipsum dolor sit 
-               amet, consectetur 
-               adipiscing elit.orem 
-               ipsum dolor sit 
-               amet, consectetur 
-               adipiscing elit.orem 
-               ipsum dolor sit 
-               amet, consectetur 
-               adipiscing elit.orem 
-               ipsum dolor sit 
-               amet, consectetur 
-               adipiscing elit.orem 
-               ipsum dolor sit 
-               amet, consectetur 
+    st.caption('''Lorem
+               ipsum dolor sit
+               amet, consectetur
+               adipiscing elit Lorem
+               ipsum dolor sit
+               amet, consectetur
+               adipiscing elit.orem
+               ipsum dolor sit
+               amet, consectetur
+               adipiscing elit.orem
+               ipsum dolor sit
+               amet, consectetur
+               adipiscing elit.orem
+               ipsum dolor sit
+               amet, consectetur
+               adipiscing elit.orem
+               ipsum dolor sit
+               amet, consectetur
+               adipiscing elit.orem
+               ipsum dolor sit
+               amet, consectetur
+               adipiscing elit.orem
+               ipsum dolor sit
+               amet, consectetur
                adipiscing elit..''')
 
     uploaded_file = st.file_uploader("Upload a file", type=["csv", "xlsx"])
 
     if uploaded_file is not None:
-        st.session_state.df = read_file(uploaded_file)
-
+        st.session_state.df = util.read_file(uploaded_file)
+        st.session_state.nums = util.get_nums(st.session_state.df)
+        st.session_state.cats = util.get_cats(st.session_state.df)
+        st.session_state.c_names = st.session_state.df.columns
     if st.button("Show data"):
-        st.write(st.session_state.df)
+        try:
+            st.write(st.session_state.df)
+        except AttributeError:
+            st.header("No dataframe uploaded")
+            st.write("Upload dataframe and try again")
+    a = util.var_selectboxes("Choose a column",st.session_state.c_names)
+    st.write(a)
 
 
 def main():
@@ -111,9 +114,10 @@ def main():
     if choice == "EDA":
         render_main_page()
     elif choice == "Visualisations":
-        pygwalker(st.session_state.df)
-
+        try:
+            pygwalker(st.session_state.df)
+        except AttributeError:
+            st.header("No dataframe uploaded yet")
+            st.write("Upload dataframe and try again")
 if __name__ == "__main__":
     main()
-
-    
