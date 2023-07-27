@@ -1,0 +1,4 @@
+Test_Name,N_parameters,Type
+A,2,Parametric
+B,3,Non-Parametric
+C,1,Sigmoid
