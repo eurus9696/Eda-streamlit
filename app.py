@@ -16,41 +16,7 @@ st.set_page_config(
 
 
 
-def pygwalker(df):
-    st.markdown(
-                """
-                <style>
-                .stApp {
-                    background-image: url('http://getwallpapers.com/wallpaper/full/d/1/7/202392.jpg');
-                    background-size: cover;
-                    background-position: center;
-                    min-height: 100vh;
-                }
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-
-    st.title('Visualisation')
-    components.html("", height=0)
-    pyg_html=str(pyg.walk(df,return_html=True,login_required=False))
-    components.html(pyg_html,height=1080,scrolling=True)
-
 def render_main_page():
-    st.markdown(
-            """
-            <style>
-            .stApp {
-                background-image: url('http://getwallpapers.com/wallpaper/full/d/1/7/202392.jpg');
-                background-size: cover;
-                background-position: center;
-                min-height: 100vh;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-
     # First row: Image, Name, Image
     col1, col2, col3 = st.columns(3)
 
@@ -92,32 +58,27 @@ def render_main_page():
     uploaded_file = st.file_uploader("Upload a file", type=["csv", "xlsx"])
 
     if uploaded_file is not None:
+        st.session_state.uploaded = True
         st.session_state.df = util.read_file(uploaded_file)
         st.session_state.nums = util.get_nums(st.session_state.df)
         st.session_state.cats = util.get_cats(st.session_state.df)
         st.session_state.c_names = st.session_state.df.columns
-    if st.button("Show data"):
-        try:
-            st.write(st.session_state.df)
-        except AttributeError:
-            st.header("No dataframe uploaded")
-            st.write("Upload dataframe and try again")
-    a = util.var_selectboxes("Choose a column",st.session_state.c_names)
-    st.write(a)
+
+    if 'button' not in st.session_state:
+        st.session_state.button = False
+
+    def click_button():
+        st.session_state.button = not st.session_state.button
+    st.button("Show data",on_click=click_button,disabled= not st.session_state.uploaded)
+    if st.session_state.button:
+        st.write(st.session_state.df)
 
 
 def main():
-    st.sidebar.title("Tools")
-    menu = ["EDA", "Visualisations"]
-    choice = st.sidebar.radio("Go to", menu)
-
-    if choice == "EDA":
-        render_main_page()
-    elif choice == "Visualisations":
-        try:
-            pygwalker(st.session_state.df)
-        except AttributeError:
-            st.header("No dataframe uploaded yet")
-            st.write("Upload dataframe and try again")
+    if 'uploaded' not in st.session_state:
+        st.session_state.uploaded = False
+    util.add_title()
+    util.add_bg()
+    render_main_page()
 if __name__ == "__main__":
     main()
