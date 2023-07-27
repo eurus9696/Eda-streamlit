@@ -4,16 +4,6 @@ import pygwalker as pyg
 import pandas as pd
 import util
 
-st.set_page_config(
-        page_title="EDA",
-        menu_items={
-            "Get Help":"https://www.github.com/eurus9696"
-            },
-        page_icon="./sas-removebg-preview.png",
-        layout="wide",
-        initial_sidebar_state='expanded'
-    )
-
 
 
 def render_main_page():
@@ -77,8 +67,10 @@ def render_main_page():
 def main():
     if 'uploaded' not in st.session_state:
         st.session_state.uploaded = False
+    render_main_page()
+
+if __name__ == "__main__":
+    util.page_config("EDA")
     util.add_title()
     util.add_bg()
-    render_main_page()
-if __name__ == "__main__":
     main()
