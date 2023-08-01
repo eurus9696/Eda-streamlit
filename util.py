@@ -18,7 +18,7 @@ def read_file(uploaded_file):
         return None
     return df
 
-def get_nums(data_frame):
+def get_nums(data_frame: pd.DataFrame):
     return data_frame.select_dtypes(include = 'number')
 
 def get_cats(data_frame):
@@ -72,8 +72,10 @@ def add_bg():
             unsafe_allow_html=True
         )
 
-def filter_dataframe(df: pd.DataFrame,min:int =None,max:int =None,key:str = None) -> pd.DataFrame:
+def filter_dataframe(df: pd.DataFrame,max:int =None,key:str = None) -> pd.DataFrame:
 
+    if max == "k":
+        max = None
     df = df.copy()
     #Converting datetimes
     for col in df.columns:
@@ -86,10 +88,12 @@ def filter_dataframe(df: pd.DataFrame,min:int =None,max:int =None,key:str = None
         if is_datetime64_any_dtype(df[col]):
             df[col] = df[col].dt.tz_localize(None)
     #Creating string to be displayed on the selectbox
-    if max == min:
-        string = f"(choose {max} column(s))"
+    if max == 1:
+        string = f"(choose 1 column)"
+    elif max == 2:
+        string = f"(choose 2 columns)"
     else:
-        string = f"(choose between {min}-{max} columns)"
+        string = f"(choose 2 or more columns)"
     modification_container = st.container()
     with modification_container:
         to_filter_columns = st.multiselect(f"Filter dataframe on {string}", df.columns,max_selections=max,key=key)

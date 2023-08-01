@@ -3,13 +3,13 @@ import pandas as pd
 import util
 
 def main():
-    tests_df = pd.read_csv("tests.csv")
+    tests_df = pd.read_csv("Sheet1.csv")
     with st.sidebar:
         tests,_ = util.filter_dataframe(tests_df)
     try:
         for test in tests.itertuples():
             with st.expander(f"{test.Test_Name}"):
-                df,to_filter_columns = util.filter_dataframe(st.session_state.df,min=2,max=4,key=test.Test_Name)
+                df,to_filter_columns = util.filter_dataframe(st.session_state.df,max=4,key=test.Test_Name)
                 df = df[list(to_filter_columns)]
                 st.dataframe(df)
     except AttributeError as e:
