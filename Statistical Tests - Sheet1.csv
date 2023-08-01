@@ -1,0 +1,74 @@
+Index,Type,N_parameters,Test_Name
+1,Parametric_classical,1,Z-test for a population mean (variance known)
+2,Parametric_classical,2,Z-test for two population means (variances known and equal)
+3,Parametric_classical,2,Z-test for two population means (variances known and unequal)
+4,Parametric_classical,1,Z-test for a proportion (binomial distribution)
+5,Parametric_classical,2,Z-test for the equality of two proportions (binomial distribution)
+6,Parametric_classical,2,Z-test for comparing two counts (Poisson distribution)
+7,Parametric_classical,1,t-test for a population mean (variance unknown)
+8,Parametric_classical,2,t-test for two population means (variances unknown but equal)
+9,Parametric_classical,2,t-test for two population means (variances unknown and unequal)
+10,Parametric_classical,2,t-test for two population means (method of paired comparisons)
+11,Parametric_classical,1,t-test of a regression coefficient
+12,Parametric_classical,1,t-test of a correlation coefficient
+13,Parametric_classical,1,Z-test of a correlation coefficient
+14,Parametric_classical,2,Z-test for two correlation coefficients
+15,Parametric_classical,1,χ2-test for a population variance
+16,Parametric_classical,2,F-test for two population variances (variance ratio test)
+17,Parametric_classical,2,F-test for two population variances (with correlated observations)
+18,Parametric_classical,2,Hotelling’s T2-test for two series of population means
+19,Parametric_classical,1,Discriminant test for the origin of a p-fold sample
+20,Parametric_classical,1,Fisher’s cumulant test for normality of a population
+21,Parametric_classical,1,Dixon’s test for outliers
+22,Parametric_classical,K,F-test for K population means (analysis of variance)
+23,Parametric_classical,2,The Z-test for correlated proportions
+24,Parametric_classical,1,χ2-test for an assumed population variance
+25,Parametric_classical,2,F-test for two counts (Poisson distribution)
+26,Parametric_classical,K,F-test for the overall mean of K subpopulations (analysis of variance)
+27,Parametric_classical,K,F-test for multiple comparison of contrasts between K population means
+30,Parametric_classical,K,Dunnett’s test for comparing K treatments with a control
+31,Parametric_classical,K,Bartlett’s test for equality of K variances
+32,Parametric_classical,K,Hartley’s test for equality of K variances
+33,Parametric_classical,1,The w/s-test for normality of a population
+35,Parametric,1,The Kolmogorov–Smirnov test for goodness of fit
+36,Parametric,2,The Kolmogorov–Smirnov test for comparing two populations
+37,Parametric,1,The χ2-test for goodness of fit
+38,Parametric,K,The χ2-test for compatibility of K counts
+39,Parametric,2,Fisher’s exact test for consistency in a 2 × 2 table
+40,Parametric,2,The χ2-test for consistency in a 2 × 2 table
+41,Parametric,K,The χ2-test for consistency in a K × 2 table
+42,Parametric,K,The Cochran test for consistency in an n × K table of dichotomous data
+43,Parametric,K,The χ2-test for consistency in a 2 × K table
+44,Parametric,K,The χ2-test for independence in a p × q table
+45,Distribution_free,1,The sign test for a median
+46,Distribution_free,2,The sign test for two medians (paired observations)
+47,Distribution_free,1,The signed rank test for a mean
+48,Distribution_free,2,The signed rank test for two means (paired observations)
+49,Distribution_free,2,The Wilcoxon inversion test (U-test)
+50,Distribution_free,2,The median test of two populations
+51,Distribution_free,K,The median test of K populations
+52,Distribution_free,2,The Wilcoxon–Mann–Whitney rank sum test of two populations
+53,Distribution_free,2,The Siegel–Tukey rank sum dispersion test of two variances
+54,Distribution_free,K,The Kruskall–Wallis rank sum test of K populations (H-test)
+55,Distribution_free,K,The rank sum difference test for the multiple comparison of K population means
+56,Distribution_free,K,The rank sum maximum test for the largest K population means
+57,Distribution_free,K,The Steel test for comparing K treatments with a control
+58,Distribution_free,1,The Spearman rank correlation test (paired observations)
+59,Distribution_free,1,The Kendall rank correlation test (paired observations)
+68,Distribution_free,2,The run test for randomness of two related samples
+69,Distribution_free,1,The run test for randomness in a sample
+70,Distribution_free,1,The Wilcoxon–Mann–Whitney rank sum test for the randomness of signs
+71,Distribution_free,1,The rank correlation test for randomness of a sample
+72,Distribution_free,K,The Wilcoxon–Wilcox test for comparison of multiple treatments of a series of subjects
+73,Distribution_free,K,Friedman’s test for multiple treatment of a series of subjects
+74,Distribution_free,K,The rank correlation test for agreement in multiple judgements
+75,Parametric_classical,1,A test for the continuous distribution of a random variable
+76,Parametric_classical,K,A test for the equality of multinomial distributions
+81,Parametric_classical,1,F-test for testing regression
+82,Parametric_classical,1,F-test for testing linearity of regression
+83,Parametric_classical,1,Z-test for the uncertainty of events
+84,Parametric_classical,2,Z-test for comparing sequential contingencies across two groups using the ‘log odds ratio’
+85,Parametric_classical,K,F-test for testing the coefficient of multiple egression
+88,Parametric_classical,1,Likelihood ratio test for the parameter of a rectangular population
+92,Parametric_classical,2,Durbin–Watson test
+94,Parametric_classical,1,χ2-test for a suitable probabilistic model
