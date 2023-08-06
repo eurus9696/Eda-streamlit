@@ -11,7 +11,7 @@ def main():
     try:
         for test in tests.itertuples():
             with st.expander(f"{test.Test_Name}"):
-                df,to_filter_columns = util.filter_dataframe(st.session_state.df,max=4,key=test.Test_Name)
+                df,to_filter_columns = util.filter_dataframe(st.session_state.df,max=4,key=test.Index)
                 df = df[list(to_filter_columns)]
                 st.dataframe(df)
                 try:

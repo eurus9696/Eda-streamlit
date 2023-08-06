@@ -1,4 +1,5 @@
 import pandas as pd
+import random
 import streamlit as st
 from pandas.api.types import (
     is_categorical_dtype,
@@ -28,7 +29,7 @@ def page_config(title):
     st.set_page_config(
         page_title=title,
         menu_items={
-            "Get Help":"https://www.github.com/eurus9696"
+            "Get Help":"https://github.com/eurus9696/Eda-streamlit/issues"
             },
         page_icon="./sas-removebg-preview.png",
         layout="wide",
@@ -105,7 +106,7 @@ def filter_dataframe(df: pd.DataFrame,max:int =None,key:str = None) -> pd.DataFr
                 user_cat_input = right.multiselect(
                     f"Values for {column}",
                     df[column].unique(),
-                    default=list(df[column].unique()),
+                    default=list(df[column].unique()),key=key+(random.randint(0,1000))
                 )
                 df = df[df[column].isin(user_cat_input)]
             elif is_numeric_dtype(df[column]):
