@@ -43,10 +43,11 @@ def add_title():
     """
         <style>
         [data-testid="stSidebarNav"]::before {
-                content: "Tools";
+                content: "EDA";
                 margin-left: 20px;
                 margin-top: 20px;
-                font-size: 30px;
+                font-size: 35px;
+                font-weight:bold;
                 position: relative;
                 top: 100px;
             }

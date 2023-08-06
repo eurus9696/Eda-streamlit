@@ -25,7 +25,7 @@ def main():
         st.write("Upload dataframe and try again")
 
 if __name__ == '__main__':
-    util.page_config("Data Exploration")
+    util.page_config("Statistical Tests")
     util.add_bg()
     util.add_title()
     main()

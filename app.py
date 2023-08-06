@@ -1,7 +1,7 @@
 import streamlit as st
-import streamlit.components.v1 as components
-import pygwalker as pyg
-import pandas as pd
+# import streamlit.components.v1 as components
+# import pygwalker as pyg
+# import pandas as pd
 import util
 
 
@@ -19,31 +19,12 @@ def render_main_page():
     with col3:
         st.image("./digiq.jpg")
 
-    st.caption('''Lorem
-               ipsum dolor sit
-               amet, consectetur
-               adipiscing elit Lorem
-               ipsum dolor sit
-               amet, consectetur
-               adipiscing elit.orem
-               ipsum dolor sit
-               amet, consectetur
-               adipiscing elit.orem
-               ipsum dolor sit
-               amet, consectetur
-               adipiscing elit.orem
-               ipsum dolor sit
-               amet, consectetur
-               adipiscing elit.orem
-               ipsum dolor sit
-               amet, consectetur
-               adipiscing elit.orem
-               ipsum dolor sit
-               amet, consectetur
-               adipiscing elit.orem
-               ipsum dolor sit
-               amet, consectetur
-               adipiscing elit..''')
+    st.caption('''
+                Discover the hidden potential within your datasets using [Streamlit-EDA]. Our user-friendly EDA and visualization website empowers you to analyze 
+               data effortlessly. Dive deep into patterns, trends, and correlations, presenting them visually with interactive charts and graphs. 
+               Collaborate with your team, share insights, and make data-driven decisions with confidence. Whether you're a seasoned analyst or a beginner, 
+               [Streamlit-EDA] equips you with the tools to explore data comprehensively and gain valuable knowledge from it. 
+               Sign up now to embark on a transformative journey of data exploration, gaining unparalleled understanding of your information. ''')
 
     uploaded_file = st.file_uploader("Upload a file", type=["csv", "xlsx"])
 
