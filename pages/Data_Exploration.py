@@ -16,9 +16,11 @@ def main():
                 st.dataframe(df)
                 try:
                  func = test_dict[test.Test_Name]
-                 func(df,to_filter_columns)
-                except Exception as e:
+                 try:
+                    func(df,to_filter_columns)
+                 except Exception as e:
                     print(e)
+                except:
                     pass
     except AttributeError as e:
         st.header("No file uploaded yet!")
