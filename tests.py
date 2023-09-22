@@ -53,6 +53,80 @@ def twelve(df,to_selected_columns):
         st.write(f"p-value: {p_value:.4f}")
         st.write("Fail to reject the null hypothesis. The correlation coefficient is not statistically significant.")
 
+def thirteen(df,to_select_columns):
+    x = df[to_select_columns[0]]  # targeted_productivity is 'independent_variable'
+    y = df[to_select_columns[1]]  # actual_productivity is 'dependent_variable'
+
+    # Perform Pearson correlation
+    correlation, _ = stats.pearsonr(x, y)
+
+    # Compute the Fisher transformation
+    fisher_transform = np.arctanh(correlation)
+
+    # Calculate the standard error
+    n = len(x)
+    standard_error = 1 / np.sqrt(n - 3)
+
+    # Set the significance level
+    alpha = 0.05
+
+    # Compare the F-statistic with the critical value
+    if f_stat < critical_value:
+        st.write(f"F-statistic: {f_stat:.4f}")
+        st.write(f"Critical value F({df1}, {df2}; {alpha}): {critical_value:.4f}")
+        st.write("Do not reject the null hypothesis. The variances are not significantly different.")
+    else:
+        st.write(f"F-statistic: {f_stat:.4f}")
+        st.write(f"Critical value F({df1}, {df2}; {alpha}): {critical_value:.4f}")
+        st.write("Reject the null hypothesis. The variances are significantly different.")
+
+def fourteen(df,to_select_columns):
+
+    x1 = df[to_select_columns[0]]  #  'independent_variable1'
+    y1 = df[to_select_columns[1]]  #  'dependent_variable1'
+
+    x2 = df[to_select_columns[2]]  #'independent_variable2'
+    y2 = df[to_select_columns[3]]  #  'dependent_variable2'
+
+    x1.dropna()
+    x2.dropna()
+    y1.dropna()
+    y2.dropna()
+
+    # Perform Pearson correlation
+    correlation1, _ = stats.pearsonr(x1, y1)
+    correlation2, _ = stats.pearsonr(x2, y2)
+
+    # Compute the Fisher transformation for both correlations
+    fisher_transform1 = np.arctanh(correlation1)
+    fisher_transform2 = np.arctanh(correlation2)
+
+    # Calculate the standard errors for both correlations
+    n1 = len(x1)
+    n2 = len(x2)
+    standard_error1 = 1 / np.sqrt(n1 - 3)
+    standard_error2 = 1 / np.sqrt(n2 - 3)
+
+    # Calculate the Z-score for comparing the two correlations
+    z_score = (fisher_transform1 - fisher_transform2) / np.sqrt(standard_error1**2 + standard_error2**2)
+    st.write("Z value: ",z_score)
+    # Calculate the p-value
+    p_value = 2 * (1 - stats.norm.cdf(abs(z_score)))
+
+    # Set the significance level
+    alpha = 0.05
+
+    # Compare the p-value with the significance level
+    if p_value < alpha:
+        st.write(f"F-statistic: {f_statistic:.4f}")
+        st.write(f"p-value: {p_value:.4f}")
+        st.write("Reject the null hypothesis. There are significant differences in the population means.")
+    else:
+        st.write(f"F-statistic: {f_statistic:.4f}")
+        st.write(f"p-value: {p_value:.4f}")
+        st.write("Fail to reject the null hypothesis. There is no significant difference in the population means.")
+
+
 def seventeen(df, to_selected_columns):
 
     # Extract the relevant columns for the variance analysis
@@ -73,19 +147,6 @@ def seventeen(df, to_selected_columns):
     f_stat = sample_variance1 / sample_variance2
     # Calculate the critical value for F at a 5% significance level and degrees of freedom (df1, df2)
     critical_value = stats.f.ppf(0.95, df1, df2)
-
-    # Set the significance level
-    alpha = 0.05
-
-    # Compare the F-statistic with the critical value
-    if f_stat < critical_value:
-        st.write(f"F-statistic: {f_stat:.4f}")
-        st.write(f"Critical value F({df1}, {df2}; {alpha}): {critical_value:.4f}")
-        st.write("Do not reject the null hypothesis. The variances are not significantly different.")
-    else:
-        st.write(f"F-statistic: {f_stat:.4f}")
-        st.write(f"Critical value F({df1}, {df2}; {alpha}): {critical_value:.4f}")
-        st.write("Reject the null hypothesis. The variances are significantly different.")
 
 def sixteen(df,to_selected_columns):
 
@@ -135,19 +196,20 @@ def twenty_two(df,to_selected_columns):
     # Get the F-statistic and p-value from the ANOVA results
     f_statistic = anova_results.statistic
     p_value = anova_results.pvalue
+    # Calculate the Z-score
+    z_score = fisher_transform / standard_error
 
-    # Set the significance level
-    alpha = 0.05
+    # Calculate the p-value
+    p_value = 2 * (1 - stats.norm.cdf(abs(z_score)))
+    st.write("Z value: ",z_score)
 
     # Compare the p-value with the significance level
     if p_value < alpha:
-        st.write(f"F-statistic: {f_statistic:.4f}")
         st.write(f"p-value: {p_value:.4f}")
-        st.write("Reject the null hypothesis. There are significant differences in the population means.")
+        st.write("Reject the null hypothesis. The correlation coefficient is statistically significant.")
     else:
-        st.write(f"F-statistic: {f_statistic:.4f}")
         st.write(f"p-value: {p_value:.4f}")
-        st.write("Fail to reject the null hypothesis. There is no significant difference in the population means.")
+        st.write("Fail to reject the null hypothesis. The correlation coefficient is not statistically significant.")
 
 def twenty_four(df,to_selected_columns):
 
@@ -395,5 +457,8 @@ def thirty_eight(df,to_selected_columns):
     # Check if there is a significant association between the variables based on the p-value
     if p_value > 0.05:
         st.write("There is no significant association between the variables.")
+        st.write(f"p-value: {p_value:.4f}")
+        st.write("Reject the null hypothesis. The two correlation coefficients are significantly different.")
     else:
-        st.write("There is a significant association between the variables.")
+        st.write(f"p-value: {p_value:.4f}")
+        st.write("Do not reject the null hypothesis. The two correlation coefficients are not significantly different.")
