@@ -20,10 +20,10 @@ def render_main_page():
         st.image("./digiq.jpg")
 
     st.caption('''
-                Discover the hidden potential within your datasets using [Streamlit-EDA]. Our user-friendly EDA and visualization website empowers you to analyze 
-               data effortlessly. Dive deep into patterns, trends, and correlations, presenting them visually with interactive charts and graphs. 
-               Collaborate with your team, share insights, and make data-driven decisions with confidence. Whether you're a seasoned analyst or a beginner, 
-               [Streamlit-EDA] equips you with the tools to explore data comprehensively and gain valuable knowledge from it. 
+                Discover the hidden potential within your datasets using [Streamlit-EDA]. Our user-friendly EDA and visualization website empowers you to analyze
+               data effortlessly. Dive deep into patterns, trends, and correlations, presenting them visually with interactive charts and graphs.
+               Collaborate with your team, share insights, and make data-driven decisions with confidence. Whether you're a seasoned analyst or a beginner,
+               [Streamlit-EDA] equips you with the tools to explore data comprehensively and gain valuable knowledge from it.
                Sign up now to embark on a transformative journey of data exploration, gaining unparalleled understanding of your information. ''')
 
     uploaded_file = st.file_uploader("Upload a file", type=["csv", "xlsx"])
