@@ -8,9 +8,9 @@ from pandas.api.types import (
     is_object_dtype,
 )
 
+
 def read_file(uploaded_file):
-    '''Read a csv/xlxs file and return a pandas dataframe
-    '''
+    """Read a csv/xlxs file and return a pandas dataframe"""
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
     elif uploaded_file.name.endswith(".xlsx"):
@@ -19,29 +19,31 @@ def read_file(uploaded_file):
         return None
     return df
 
+
 def get_nums(data_frame: pd.DataFrame):
-    return data_frame.select_dtypes(include = 'number')
+    return data_frame.select_dtypes(include="number")
+
 
 def get_cats(data_frame):
-    return data_frame.select_dtypes(include = 'object')
+    return data_frame.select_dtypes(include="object")
+
 
 def page_config(title):
     st.set_page_config(
         page_title=title,
-        menu_items={
-            "Get Help":"https://github.com/eurus9696/Eda-streamlit/issues"
-            },
+        menu_items={"Get Help": "https://github.com/eurus9696/Eda-streamlit/issues"},
         page_icon="./sas-removebg-preview.png",
         layout="wide",
-        initial_sidebar_state='expanded'
+        initial_sidebar_state="expanded",
     )
 
+
 def add_title():
-    '''Insert title before the navigation area in
+    """Insert title before the navigation area in
     the sidebar
-    '''
-    st.markdown(
     """
+    st.markdown(
+        """
         <style>
         [data-testid="stSidebarNav"]::before {
                 content: "EDA";
@@ -57,11 +59,11 @@ def add_title():
         unsafe_allow_html=True,
     )
 
+
 def add_bg():
-    '''Add the background image to each page
-    '''
+    """Add the background image to each page"""
     st.markdown(
-            """
+        """
             <style>
             .stApp {
                 background-image: url('http://getwallpapers.com/wallpaper/full/d/1/7/202392.jpg');
@@ -71,25 +73,27 @@ def add_bg():
             }
             </style>
             """,
-            unsafe_allow_html=True
-        )
+        unsafe_allow_html=True,
+    )
 
-def filter_dataframe(df: pd.DataFrame,max:int =None,key:str = None) -> pd.DataFrame:
 
+def filter_dataframe(
+    df: pd.DataFrame, max: int = None, key: str = None
+) -> pd.DataFrame:
     if max == "k":
         max = None
     df = df.copy()
-    #Converting datetimes
+    # Converting datetimes
     for col in df.columns:
-    #    if is_object_dtype(df[col]):
-    #        try:
-    #            df[col] = pd.to_datetime(df[col])
-    #        except Exception:
-    #            pass
+        #    if is_object_dtype(df[col]):
+        #        try:
+        #            df[col] = pd.to_datetime(df[col])
+        #        except Exception:
+        #            pass
 
         if is_datetime64_any_dtype(df[col]):
             df[col] = df[col].dt.tz_localize(None)
-    #Creating string to be displayed on the selectbox
+    # Creating string to be displayed on the selectbox
     if max == 1:
         string = f"(choose 1 column)"
     elif max == 2:
@@ -98,17 +102,20 @@ def filter_dataframe(df: pd.DataFrame,max:int =None,key:str = None) -> pd.DataFr
         string = f"(choose 2 or more columns)"
     modification_container = st.container()
     with modification_container:
-        to_filter_columns = st.multiselect(f"Filter dataframe on {string}", df.columns,max_selections=max,key=key)
+        to_filter_columns = st.multiselect(
+            f"Filter dataframe on {string}", df.columns, max_selections=max, key=key
+        )
         for column in to_filter_columns:
             left, right = st.columns((1, 20))
             # Treat columns with < 10 unique values as categorical
+            print(key + column)
             if is_categorical_dtype(df[column]) or df[column].nunique() < 10:
                 user_cat_input = right.multiselect(
-                                        f"Values for {column}",
-                                        df[column].unique(),
-                                        default=list(df[column].unique()),
-                                        key=key+" Categorical"
-                                        )
+                    f"Values for {column}",
+                    df[column].unique(),
+                    default=list(df[column].unique()),
+                    key=key + column,
+                )
                 df = df[df[column].isin(user_cat_input)]
             elif is_numeric_dtype(df[column]):
                 _min = float(df[column].min())
@@ -120,6 +127,7 @@ def filter_dataframe(df: pd.DataFrame,max:int =None,key:str = None) -> pd.DataFr
                     max_value=_max,
                     value=(_min, _max),
                     step=step,
+                    key=key + column,
                 )
                 df = df[df[column].between(*user_num_input)]
             elif is_datetime64_any_dtype(df[column]):
@@ -140,4 +148,4 @@ def filter_dataframe(df: pd.DataFrame,max:int =None,key:str = None) -> pd.DataFr
                 )
                 if user_text_input:
                     df = df[df[column].astype(str).str.contains(user_text_input)]
-    return df,to_filter_columns
+    return df, to_filter_columns
