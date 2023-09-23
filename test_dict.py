@@ -16,5 +16,9 @@ test_dict = {
         "The Kolmogorov–Smirnov test for goodness of fit":tests.thirty_five,
         "The Kolmogorov–Smirnov test for comparing two populations":tests.thirty_six,
         "The χ2-test for goodness of fit":tests.thirty_seven,
-        "The χ2-test for compatibility of K counts":tests.thirty_eight
+        "The χ2-test for compatibility of K counts":tests.thirty_eight,
+        "The χ2-test for consistency in a 2 × 2 table":tests.fourty,
+        "The χ2-test for consistency in a K × 2 table":tests.fourty_one,
+        "The Cochran test for consistency in an n × K table of dichotomous data":tests.fourty_two,
+        "The χ2-test for consistency in a 2 × K table":tests.fourty_three,
 }

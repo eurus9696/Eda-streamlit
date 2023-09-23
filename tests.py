@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import scipy.stats as stats
+import pingouin as pg #test.fourty_two
 
 def eleven(df ,to_selected_columns):
     '''t-test of regressioin co-efficient
@@ -462,3 +463,55 @@ def thirty_eight(df,to_selected_columns):
     else:
         st.write(f"p-value: {p_value:.4f}")
         st.write("Do not reject the null hypothesis. The two correlation coefficients are not significantly different.")
+
+def fourty(df,to_selected_columns):
+    variable_1 = to_selected_columns[0]
+    variable_2 = to_selected_columns[1]
+    contingency_table = pd.crosstab(df[variable_1], df[variable_2])
+    chi_square_statistic, p_value, dof, expected = stats.chi2_contingency(contingency_table)
+    print(f"Chi-Square test statistic: {chi_square_statistic:.4f}")
+    print(f"P-value: {p_value:.4f}")
+    print(f"Degrees of freedom: {dof}")
+    print("Expected frequencies:")
+    print(expected)
+    if p_value > 0.05:
+        print("There is no significant association between the variables.")
+    else:
+        print("There is a significant association between the variables.")
+
+def fourty_one(df,to_selected_columns):
+    categorical_variable = to_selected_columns[0]
+    binary_variable = to_selected_columns[1]
+    contingency_table = pd.crosstab(df[categorical_variable], df[binary_variable])
+    chi_square_statistic, p_value, dof, expected = stats.chi2_contingency(contingency_table)
+    print(f"Chi-Square test statistic: {chi_square_statistic:.4f}")
+    print(f"P-value: {p_value:.4f}")
+    print(f"Degrees of freedom: {dof}")
+    print("Expected frequencies:")
+    print(expected)
+    if p_value > 0.05:
+        print("There is no significant association between the variables.")
+    else:
+        print("There is a significant association between the variables.")
+
+def fourty_two(df,to_selected_columns):
+    n = to_selected_columns[0]
+    k = to_selected_columns[1]
+    crosstab_data = pd.crosstab(df[n], df[k])
+    result = pg.cochran(crosstab_data)
+    print(result)
+
+def fourty_three(df,to_selected_columns):
+    binary_variable = to_selected_columns[0]
+    categorical_variable = to_selected_columns[1]
+    contingency_table = pd.crosstab(df[binary_variable], df[categorical_variable])
+    chi_square_statistic, p_value, dof, expected = stats.chi2_contingency(contingency_table)
+    print(f"Chi-Square test statistic: {chi_square_statistic:.4f}")
+    print(f"P-value: {p_value:.4f}")
+    print(f"Degrees of freedom: {dof}")
+    print("Expected frequencies:")
+    print(expected)
+    if p_value > 0.05:
+        print("There is no significant association between the variables.")
+    else:
+        print("There is a significant association between the variables.")
