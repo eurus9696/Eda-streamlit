@@ -66,7 +66,7 @@ def add_bg():
         """
             <style>
             .stApp {
-                background-image: url('http://getwallpapers.com/wallpaper/full/d/1/7/202392.jpg');
+                background-image: url('https://wallpapercave.com/wp/MQy6rhu.jpg');
                 background-size: cover;
                 background-position: center;
                 min-height: 100vh;
@@ -108,7 +108,6 @@ def filter_dataframe(
         for column in to_filter_columns:
             left, right = st.columns((1, 20))
             # Treat columns with < 10 unique values as categorical
-            print(key + column)
             if is_categorical_dtype(df[column]) or df[column].nunique() < 10:
                 user_cat_input = right.multiselect(
                     f"Values for {column}",
