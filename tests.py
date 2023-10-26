@@ -447,10 +447,7 @@ def thrity_four(df, to_selected_columns):
 
 def thirty_five(df, to_selected_columns):
     # Extract the relevant column for the Kolmogorov-Smirnov test
-    variable_to_test = to_selected_columns[
-        0
-    ]  # Replace 'actual_productivity' with the column name representing the variable you want to test
-
+    variable_to_test = to_selected_columns[0]
     # Get the data for the Kolmogorov-Smirnov test
     data_for_test = df[variable_to_test]
 
@@ -462,11 +459,9 @@ def thirty_five(df, to_selected_columns):
         data_for_test, "norm", args=(data_for_test.mean(), data_for_test.std())
     )
 
-    # st.write the results
     st.write(f"Kolmogorov-Smirnov test statistic: {statistic:.4f}")
     st.write(f"P-value: {p_value:.4f}")
 
-    # Check if the data follows the given distribution based on the p-value
     if p_value > 0.05:
         st.write("The data follows the normal distribution.")
     else:
@@ -535,7 +530,7 @@ def thirty_eight(df, to_selected_columns):
     # Extract the relevant columns for the Chi-Square test
     variable_1 = to_selected_columns[
         0
-    ]  # Replace 'department' with the first column name representing the variable you want to test
+    ]
     variable_2 = to_selected_columns[
         1
     ]  # Replace 'quarter' with the second column name representing the variable you want to test
@@ -629,3 +624,65 @@ def fourty_three(df, to_selected_columns):
         st.write("There is no significant association between the variables.")
     else:
         st.write("There is a significant association between the variables.")
+
+def fourty_four(df,to_selected_columns):
+    variable_1 =  to_selected_columns[0] # the first categorical variable with p categories
+    variable_2 =   to_selected_columns[1]# the second categorical variable with q categories
+
+    # Create a p x q contingency table
+    contingency_table = pd.crosstab(df[variable_1], df[variable_2])
+
+    # Perform the Chi-Square test for independence in the p x q table
+    chi_square_statistic, p_value, dof, expected = stats.chi2_contingency(contingency_table)
+
+    # St.Write the results
+    st.write(f"Chi-Square test statistic: {chi_square_statistic:.4f}")
+    st.write(f"P-value: {p_value:.4f}")
+    st.write(f"Degrees of freedom: {dof}")
+    st.write("Expected frequencies:")
+    st.write(expected)
+
+    # Check if there is a significant association between the variables based on the p-value
+    if p_value > 0.05:
+        st.write("There is no significant association between the variables.")
+    else:
+        st.write("There is a significant association between the variables.")
+
+
+def fourty_five(df,to_selected_columns):
+    # Extract the relevant column for the sign test
+    sample_data = to_selected_columns[0]
+
+    # Define the hypothesized median value
+    hypothesized_median = 50  # Replace with the specific value for the hypothesized median
+
+    # Perform the sign test
+    statistic, p_value = stats.wilcoxon(sample_data - hypothesized_median)
+
+    # St.Write the results
+    st.write(f"Sign test statistic: {statistic:.4f}")
+    st.write(f"P-value: {p_value:.4f}")
+
+    # Check if the median is significantly different from the hypothesized value based on the p-value
+    if p_value > 0.05:
+        st.write("The median is not significantly different from the hypothesized value (default 50).")
+    else:
+        st.write("The median is significantly different from the hypothesized value.")
+
+def fourty_six(df,to_selected_columns):
+    # Extract the relevant columns for the sign test
+    sample1_data = to_selected_columns[0]
+    sample2_data = to_selected_columns[1]
+
+    # Perform the sign test for two medians (paired observations)
+    statistic, p_value = stats.wilcoxon(sample1_data, sample2_data)
+
+    # St.Write the results
+    st.write(f"Sign test statistic: {statistic:.4f}")
+    st.write(f"P-value: {p_value:.4f}")
+
+    # Check if there is a significant difference between the two medians based on the p-value
+    if p_value > 0.05:
+        st.write("There is no significant difference between the two medians.")
+    else:
+        st.write("There is a significant difference between the two medians.")

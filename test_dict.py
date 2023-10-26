@@ -21,4 +21,7 @@ test_dict = {
     "The χ2-test for consistency in a K × 2 table": tests.fourty_one,
     "The Cochran test for consistency in an n × K table of dichotomous data": tests.fourty_two,
     "The χ2-test for consistency in a 2 × K table": tests.fourty_three,
+    "The χ2-test for independence in a p × q table": tests.fourty_four,
+    "The sign test for a median":tests.fourty_five,
+    "The sign test for two medians (Paired Observation)": tests.fourty_six,
 }
