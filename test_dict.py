@@ -24,4 +24,11 @@ test_dict = {
     "The χ2-test for independence in a p × q table": tests.fourty_four,
     "The sign test for a median":tests.fourty_five,
     "The sign test for two medians (Paired Observation)": tests.fourty_six,
+    "The signed rank test for a mean":tests.fourty_seven,
+    "The signed rank test for two means (paired observations)": tests.fourty_eight,
+    "The Wilcoxon inversion test (U-test)":tests.fourty_nine,
+    "The median test of two populations":tests.fifty,
+    "The median test of K populations":tests.fifty_one,
+    "The Wilcoxon–Mann–Whitney rank sum test of two populations":tests.fifty_two,
+    "The Siegel–Tukey rank sum dispersion test of two variances":tests.fifty_three,
 }

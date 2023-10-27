@@ -4,7 +4,8 @@ import pandas as pd
 import numpy as np
 import scipy.stats as stats
 import pingouin as pg
-
+from scipy.stats import mannwhitneyu
+from itertools import combinations
 
 def eleven(df, to_selected_columns):
     """t-test of regressioin co-efficient"""
@@ -686,3 +687,151 @@ def fourty_six(df,to_selected_columns):
         st.write("There is no significant difference between the two medians.")
     else:
         st.write("There is a significant difference between the two medians.")
+
+
+def fourty_seven(df,to_selected_columns):
+    # Extract the relevant column for the signed rank test
+    sample_data = to_selected_columns[0]
+
+    # Define the hypothesized mean value
+    hypothesized_mean = 50 # Replace with the specific value for the hypothesized mean
+
+    # Perform the signed rank test
+    statistic, p_value = stats.wilcoxon(sample_data - hypothesized_mean)
+
+    # St.Write the results
+    st.write(f"Signed rank test statistic: {statistic:.4f}")
+    st.write(f"P-value: {p_value:.4f}")
+
+    # Check if the mean is significantly different from the hypothesized value based on the p-value
+    if p_value > 0.05:
+        st.write("The mean is not significantly different from the hypothesized value.")
+    else:
+        st.write("The mean is significantly different from the hypothesized value.")
+
+def fourty_eight(df, to_selected_columns):
+        # Extract the relevant columns for the Wilcoxon signed-rank test
+    sample1_data = to_selected_columns[0]
+    sample2_data = to_selected_columns[1]
+
+    # Perform the Wilcoxon signed-rank test for two means (paired observations)
+    statistic, p_value = stats.wilcoxon(sample1_data, sample2_data)
+
+    # St.Write the results
+    st.write(f"Wilcoxon signed-rank test statistic: {statistic:.4f}")
+    st.write(f"P-value: {p_value:.4f}")
+
+    # Check if there is a significant difference between the two means based on the p-value
+    if p_value > 0.05:
+        st.write("There is no significant difference between the means of the two paired samples.")
+    else:
+        st.write("There is a significant difference between the means of the two paired samples.")
+
+def fourty_nine(df, to_selected_columns):
+    # Extract the relevant columns for the Wilcoxon inversion test (U-test)
+    sample1_data = to_selected_columns[0]
+    sample2_data = to_selected_columns[1]
+
+    # Perform the Wilcoxon inversion test (U-test) for two independent samples
+    statistic, p_value = stats.mannwhitneyu(sample1_data, sample2_data, alternative='two-sided')
+
+    # St.Write the results
+    st.write(f"Wilcoxon inversion test (U-test) statistic: {statistic:.4f}")
+    st.write(f"P-value: {p_value:.4f}")
+
+    # Check if there is a significant difference between the two samples based on the p-value
+    if p_value > 0.05:
+        st.write("There is no significant difference between the two samples.")
+    else:
+        st.write("There is a significant difference between the two samples.")
+
+def fifty(df, to_selected_columns):
+        # Extract the relevant columns for the median test
+    group1_data = to_selected_columns[0]
+    group2_data = to_selected_columns[1]
+
+    # Perform the median test for two populations
+    statistic, p_value, median_group1, median_group2 = stats.median_test(group1_data, group2_data)
+
+    # St.Write the results
+    st.write(f"Median test statistic: ",statistic)
+    st.write(f"P-value: {p_value:.4f}")
+    st.write(f"Median of Group 1: ",median_group1)
+    st.write(f"Median of Group 2: ",median_group2)
+
+    # Check if there is a significant difference in medians between the two populations based on the p-value
+    if p_value > 0.05:
+        st.write("There is no significant difference in medians between the two populations.")
+    else:
+        st.write("There is a significant difference in medians between the two populations.")
+
+def fifty_one(df, to_selected_columns):
+    # Extract the relevant columns for the median test of K populations
+    group_data = [to_selected_columns[0],to_selected_columns[1],to_selected_columns[2]]
+    # Add more columns for each group as needed.
+
+    # Perform the median test for K populations
+    statistic, p_value, grand_median, table = stats.median_test(*group_data)
+
+    # St.Write the results
+    st.write(f"Median test statistic: {statistic:.4f}")
+    st.write(f"P-value: {p_value:.4f}")
+    st.write(f"Grand Median: {grand_median:.4f}")
+
+    # Check if there is a significant difference in medians between the populations based on the p-value
+    if p_value > 0.05:
+        st.write("There is no significant difference in medians between the populations.")
+    else:
+        st.write("There is a significant difference in medians between the populations.")
+
+def fifty_two(df, to_selected_columns):
+    # Extract the relevant columns for the Mann-Whitney U test of two populations
+    group1_data = to_selected_columns[0]
+    group2_data = to_selected_columns[1]
+
+    # Perform the Mann-Whitney U test for two independent populations
+    statistic, p_value = stats.mannwhitneyu(group1_data, group2_data, alternative='two-sided')
+
+    # St.Write the results
+    st.write(f"Mann-Whitney U test statistic: {statistic:.4f}")
+    st.write(f"P-value: {p_value:.4f}")
+
+    # Check if there is a significant difference between the two populations based on the p-value
+    if p_value > 0.05:
+        st.write("There is no significant difference between the two populations.")
+    else:
+        st.write("There is a significant difference between the two populations.")
+
+def fifty_three(df, to_selected_columns):
+    # Extract the relevant columns for the Siegel-Tukey rank sum dispersion test
+    group1_data = to_selected_columns[0]
+    group2_data = to_selected_columns[1]
+
+    # Perform the Siegel-Tukey rank sum dispersion test for two independent samples
+    statistic, p_value = stats.fligner(group1_data, group2_data)
+
+    # St.Write the results
+    st.write(f"Siegel-Tukey test statistic: {statistic:.4f}")
+    st.write(f"P-value: {p_value:.4f}")
+
+    # Check if there is a significant difference in the variances between the two populations based on the p-value
+    if p_value > 0.05:
+        st.write("There is no significant difference in variances between the two populations.")
+    else:
+        st.write("There is a significant difference in variances between the two populations.")
+
+def fifty_three(df, to_selected_columns):
+
+    # Perform the Kruskal-Wallis test for K populations
+    statistic, p_value = stats.kruskal(*to_selected_columns)
+    # Add more group data as needed.
+
+    # St.Write the results
+    st.write(f"Kruskal-Wallis test statistic: {statistic:.4f}")
+    st.write(f"P-value: {p_value:.4f}")
+
+    # Check if there is a significant difference in medians between the populations based on the p-value
+    if p_value > 0.05:
+        st.write("There is no significant difference in medians between the populations.")
+    else:
+        st.write("There is a significant difference in medians between the populations.")
